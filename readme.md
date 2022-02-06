@@ -1,5 +1,5 @@
-https://medium.com/openinfo/ansible-ssh-private-public-keys-and-agent-setup-19c50b69c8c
-
+## creation based on docker image from
+https://github.com/itzg/docker-minecraft-server
 ## dependencies
 - ansible
 - be on the vpn
@@ -14,5 +14,5 @@ This script will copy the docker-compose file and apply the changes if there are
 [] sync backups to another location. (ICloud, s3, etc)
 [] look into running multiple instances. (Stable, Experimental, etc)
 [] let clients and devs know about server changes automatically
-[] healthchecks - possibly with alerting
+[] healthchecks - possibly with alerting and (dashboards)[https://github.com/itzg/mc-monitor]
 [] add custom plugins/add-ons

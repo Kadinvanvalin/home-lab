@@ -8,11 +8,10 @@ services:
       GAMEMODE: survival
       DIFFICULTY: normal
       MAX_PLAYERS: 10
-      WHITE_LIST_USERS: Phytotoxin1,Kadinvanvalin
     ports:
       - 19132:19132/udp
     volumes:
-      - bds:/data
+      - /volume1/docker/minecraft-server/data:/data
     stdin_open: true
     tty: true
 
