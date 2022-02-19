@@ -1,3 +1,4 @@
+
 ## creation based on docker image from
 https://github.com/itzg/docker-minecraft-server
 ## dependencies
@@ -17,3 +18,9 @@ This script will copy the docker-compose file and apply the changes if there are
 [] let clients and devs know about server changes automatically
 [] healthchecks - possibly with alerting and (dashboards)[https://github.com/itzg/mc-monitor]
 [] add custom plugins/add-ons
+
+## openSsh
+
+This project uses an admin user for a synology nas to setup an ssh server for non-admin synology users.
+
+request to add your PUBLIC key to authorized keys for access to docker on the vpn

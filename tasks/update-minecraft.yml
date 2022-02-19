@@ -11,4 +11,3 @@
   ansible.builtin.command: /usr/bin/docker-compose up -d
   args:
     chdir: /docker/minecraft-server
-  when: copyfile.changed
