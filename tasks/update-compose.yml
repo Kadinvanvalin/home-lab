@@ -1,0 +1,41 @@
+---
+- name: copy project files to nas
+  ansible.builtin.copy:
+    src: ../docker/
+    dest: /volume1/openssh/ansible
+    owner: su-kadin
+    group: users
+    mode: '700'
+  register: copyfile
+- name: Creates config bindmount
+  file:
+    path: /volume1/openssh/config
+    owner: su-kadin
+    group: users
+    mode: '700'
+    state: directory
+- name: Creates .ssh 
+  file:
+    path: /volume1/openssh/config/.ssh
+    owner: su-kadin
+    group: users
+    mode: '700'
+    state: directory
+- name: copy project authorized_keys
+  ansible.builtin.copy:
+    src: ../authorized_keys
+    dest: /volume1/openssh/config/.ssh/authorized_keys
+    owner: su-kadin
+    group: users
+    mode: '700'
+  register: copyfile
+- name: build image
+  ansible.builtin.command: /usr/local/bin/docker-compose build
+  args:
+    chdir: /volume1/openssh/ansible
+  when: copyfile.changed
+- name: run docker-compose up -d
+  ansible.builtin.command: /usr/local/bin/docker-compose up -d
+  args:
+    chdir: /volume1/openssh/ansible
+  when: copyfile.changed

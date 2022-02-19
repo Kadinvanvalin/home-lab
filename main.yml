@@ -1,0 +1,9 @@
+---
+
+- name: Run using a project directory
+  hosts: nas
+  gather_facts: no
+  tasks:
+
+    - import_tasks: tasks/update-compose.yml
+      tags: ['update']

@@ -1,0 +1,5 @@
+[nas]
+synology.nas ansible_connection=ssh
+[nas:vars]
+ansible_ssh_user=su-kadin
+ansible_ssh_common_args='-F .ssh/config'
