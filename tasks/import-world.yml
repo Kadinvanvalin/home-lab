@@ -2,8 +2,8 @@
 - name: copy realm save data to nas
   ansible.builtin.copy:
     src: realm/
-    dest: /volume1/docker/minecraft-server/data/worlds/Bedrock level
-    owner: kadin
+    dest: /docker/minecraft-server/data/worlds/Bedrock level
+    owner: ansible
     group: users
     mode: '666'
 

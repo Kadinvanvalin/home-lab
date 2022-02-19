@@ -2,13 +2,13 @@
 - name: copy docker compose file
   ansible.builtin.copy:
     src: docker-compose.yml
-    dest: /volume1/docker/minecraft-server/docker-compose.yml
-    owner: kadin
+    dest: /docker/minecraft-server/docker-compose.yml
+    owner: ansible
     group: users
     mode: '666'
   register: copyfile
 - name: run docker-compose up -d
-  ansible.builtin.command: /usr/local/bin/docker-compose up -d
+  ansible.builtin.command: /usr/bin/docker-compose up -d
   args:
-    chdir: /volume1/docker/minecraft-server
+    chdir: /docker/minecraft-server
   when: copyfile.changed
