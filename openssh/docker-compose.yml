@@ -1,0 +1,38 @@
+---
+version: "2.1"
+services:
+  openssh-server:
+    image: lscr.io/linuxserver/openssh-server
+    container_name: openssh-server
+    hostname: openssh-server #optional
+    environment:
+      - DOCKER_MODS=linuxserver/mods:universal-docker
+      - PUID=1026 # su-kadin
+      # - PGID=100 # users group
+      - PGID=1750 #docker group
+      # - TZ=Europe/London
+      - PUBLIC_KEY_FILE=./authorized_keys
+      - PASSWORD_ACCESS=false
+      - USER_NAME=ansible
+      - DOCKER_HOST=dockerproxy:2375
+    volumes:
+    - /volume1/docker:/docker
+    - /volume1/openssh/config:/config
+    ports:
+      - 2222:2222
+    restart: unless-stopped
+  dockerproxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: dockerproxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 2375:2375
+    restart: unless-stopped
+    environment:
+      - NETWORKS=1
+      - INFO=1
+      - VOLUMES=1
+      - CONTAINERS=1
+      - IMAGES=1
+      - POST=1
