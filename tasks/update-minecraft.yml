@@ -8,6 +8,8 @@
     mode: '666'
   register: copyfile
 - name: run docker-compose up -d
-  ansible.builtin.command: /usr/bin/docker-compose up -d
+  ansible.builtin.command: /usr/local/bin/docker-compose up -d
+  environment:
+    DOCKER_HOST: dockerproxy:2375
   args:
     chdir: /docker/minecraft-server

@@ -1,7 +1,7 @@
 ---
 - name: copy project files to nas
   ansible.builtin.copy:
-    src: ../docker/
+    src: ../openssh/
     dest: /volume1/openssh/ansible
     owner: su-kadin
     group: users
@@ -28,14 +28,32 @@
     owner: su-kadin
     group: users
     mode: '700'
-  register: copyfile
-- name: build image
-  ansible.builtin.command: /usr/local/bin/docker-compose build
-  args:
-    chdir: /volume1/openssh/ansible
-  when: copyfile.changed
+- name: copy bash profile
+  ansible.builtin.copy:
+    src: ../openssh/.profile
+    dest: /volume1/openssh/config/.profile
+    owner: su-kadin
+    group: users
+    mode: '700'
+- name: Creates dir for custom scripting
+  become: yes
+  become_user: root
+  file:
+    path: /volume1/openssh/config/custom-custom-init
+    owner: root
+    group: root
+    mode: '770'
+    state: directory
+- name: copy custom scripts
+  become: yes
+  become_user: root
+  ansible.builtin.copy:
+    src: ../openssh/scripts/
+    dest: /volume1/openssh/config/custom-cont-init.d/
+    owner: root
+    group: root
+    mode: '770'
 - name: run docker-compose up -d
   ansible.builtin.command: /usr/local/bin/docker-compose up -d
   args:
     chdir: /volume1/openssh/ansible
-  when: copyfile.changed

@@ -1,6 +1,8 @@
 ---
 - name: take minecraft server down
-  ansible.builtin.command: /usr/bin/docker-compose down
+  command: /usr/local/bin/docker-compose down
+  environment:
+    DOCKER_HOST: dockerproxy:2375
   args:
     chdir: /docker/minecraft-server
 - name: archive the world
@@ -8,7 +10,9 @@
     path: /docker/minecraft-server/data/worlds/Bedrock level
     dest: /docker/minecraft-server/backup.gz
 - name: bring minecraft server up
-  ansible.builtin.command: /usr/bin//docker-compose up -d
+  ansible.builtin.command: /usr/local/bin/docker-compose up -d
+  environment:
+    DOCKER_HOST: dockerproxy:2375
   args:
     chdir: /docker/minecraft-server
 - name: download backup
