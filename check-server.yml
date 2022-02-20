@@ -1,0 +1,14 @@
+---
+
+- name: Run using a project directory
+  hosts: docker
+  gather_facts: no
+  tasks:
+    - command: /usr/local/bin/docker ps
+      register: docker_status
+      environment:
+        DOCKER_HOST: dockerproxy:2375
+      args:
+        chdir: /docker/minecraft-server
+    - debug:
+        var: docker_status.stdout_lines
