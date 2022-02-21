@@ -5,9 +5,14 @@ https://github.com/itzg/docker-minecraft-server
 - ansible
 - be on the vpn
 - ssh access to synology at 10.10.10.10
-## how to run
+## how to update and backup minecraft server
 ```bash
-ansible-playbook main.yml
+ansible-playbook minecraft-server.yml
+```
+## how to backup minecraft server 
+you can add tags to only do some tasks
+```bash
+ansible-playbook minecraft-server.yml --tags backup
 ```
 This script will copy the docker-compose file and apply the changes if there are any updates
 ## TODO
